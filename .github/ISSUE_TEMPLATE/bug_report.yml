@@ -1,0 +1,30 @@
+name: Bug Report
+description: Report a bug to help us improve
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Package Version
+      description: What version of aurora-bg are you using?
+      placeholder: 0.1.0
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      description: Which browser and version?
+      placeholder: Chrome 125
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this?
+      placeholder: 1. Go to... 2. Click... 3. See error
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
