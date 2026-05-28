@@ -1,6 +1,8 @@
 import esbuild from 'rollup-plugin-esbuild'
-import terser from '@rollup/plugin-terser'
+import livereload from 'rollup-plugin-livereload'
 import resolve from '@rollup/plugin-node-resolve'
+import serve from 'rollup-plugin-serve'
+import terser from '@rollup/plugin-terser'
 
 export default [
   {
@@ -18,6 +20,18 @@ export default [
       esbuild({ tsconfig: 'tsconfig.json' }),
       resolve(),
       terser({ format: { comments: false } }),
+      ...(process.env.SERVE
+        ? [
+            serve({
+              open: '/examples/basic.html',
+              contentBase: '.',
+              host: 'localhost',
+              port: 3000,
+              historyApiFallback: '/examples/basic.html',
+            }),
+            livereload({ watch: 'dist', verbose: false }),
+          ]
+        : []),
     ],
     output: {
       file: 'dist/aurora.umd.js',
