@@ -5,7 +5,7 @@ description: >
   selection, defines injection, RawShaderMaterial, and custom vertex/fragment
   shaders within Three.js. Tab-cycle from orchestrator/webgl3d-engineer
   when custom material work is needed.
-mode: primary
+mode: subagent
 model: opencode/deepseek-v4-flash-free
 variant: max
 permission:

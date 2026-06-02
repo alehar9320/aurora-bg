@@ -4,7 +4,7 @@ description: >
   SSAO, SSR, custom ShaderPass, and full pipeline configuration with exact
   import paths and pass ordering. Tab-cycle from orchestrator/webgl3d-engineer
   when post-FX work is needed.
-mode: primary
+mode: subagent
 model: opencode/deepseek-v4-flash-free
 variant: express
 permission:

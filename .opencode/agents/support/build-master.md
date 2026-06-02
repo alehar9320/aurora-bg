@@ -4,7 +4,7 @@ description: >
   Handles npm scripts, TypeScript compilation, Rollup bundle generation,
   vitest test execution, ESLint, Prettier, CHANGELOG maintenance,
   and conventional commit enforcement. Tab-cycle for CI/PR workflows.
-mode: primary
+mode: subagent
 model: opencode/deepseek-v4-flash-free
 variant: express
 permission:

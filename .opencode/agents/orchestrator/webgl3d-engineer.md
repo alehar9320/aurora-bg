@@ -6,7 +6,7 @@ description: >
   technology branch (pure WebGL2 or Three.js), applies that branch's
   enforced standards, and recommends sub-agents for specialized work.
   Tab-cycle for all 3D implementation decisions.
-mode: primary
+mode: subagent
 model: opencode/deepseek-v4-flash-free
 variant: max
 permission:

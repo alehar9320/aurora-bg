@@ -7,6 +7,7 @@ description: >
   for execution.
 mode: primary
 model: opencode/deepseek-v4-flash-free
+variant: default
 permission:
   edit: allow
   bash:

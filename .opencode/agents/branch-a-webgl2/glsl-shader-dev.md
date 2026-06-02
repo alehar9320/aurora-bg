@@ -4,7 +4,7 @@ description: >
   vertex and fragment shader writing, shader compilation debugging,
   shader optimization, and uniform/attribute/varying management.
   Tab-cycle from orchestrator/webgl3d-engineer when shader work is needed.
-mode: primary
+mode: subagent
 model: opencode/deepseek-v4-flash-free
 variant: max
 permission:

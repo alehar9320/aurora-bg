@@ -1,5 +1,8 @@
 # OpenCode Agent & Skill Hierarchy
 
+> **Primary agents** (UI-visible): `architect-plan` (plan-only) and `build-engineer` (implementation-only).  
+> **All other agents** are `subagent` mode — hidden from the tab-cycle UI, loadable programmatically via `subagent()`.
+
 ```
 .opencode/
 ├── HIERARCHY.md                            ← this file
