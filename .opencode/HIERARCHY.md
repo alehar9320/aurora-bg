@@ -17,7 +17,8 @@
 │   │   ├── postfx-composer.md             ← EffectComposer pipeline
 │   │   └── shader-engineer.md             ← ShaderMaterial / custom shaders
 │   └── support/
-│       └── build-master.md                ← build/test/lint/release
+│       ├── build-master.md                ← build/test/lint/release
+│       └── opencode-defs-validator.md     ← config validation vs docs/source
 │
 └── skills/
     ├── architect-plan/                    ← planning decomposition rules
@@ -25,7 +26,8 @@
     ├── a-glsl-shader/                     ← GLSL v300 es syntax + debug
     ├── b-threejs-expert/                  ← Branch B: Three.js + docs protocol
     ├── b-postfx/                          ← EffectComposer + passes
-    └── b-shader/                          ← ShaderMaterial conventions
+    ├── b-shader/                          ← ShaderMaterial conventions
+    └── opencode-definitions/              ← opencode config validation rules
 
 Convention:
   agents/ → nested by role
