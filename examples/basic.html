@@ -2,38 +2,321 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurora BG — Basic Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurora BG — Premium Demo</title>
   <style>
-    body { margin: 0; background: #0a0a1a; height: 100vh; font-family: system-ui, sans-serif; }
-    .container { display: flex; gap: 10px; padding: 20px; height: 100vh; box-sizing: border-box; }
+    :root {
+      --bg-dark: #020005;
+      --text-main: #ffffff;
+      --text-muted: #8e8da4;
+      --accent-glow: #7c52ff;
+      --accent-green: #00ffaa;
+      --card-bg: rgba(4, 3, 10, 0.65);
+      --card-border: rgba(255, 255, 255, 0.05);
+    }
+    body, html {
+      margin: 0; padding: 0; width: 100%;
+      background-color: var(--bg-dark);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text-main);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    /* Fullscreen aurora background */
+    aurora-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      display: block;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      box-sizing: border-box;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      pointer-events: auto;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-icon {
+      width: 16px;
+      height: 16px;
+      background: linear-gradient(135deg, #7c52ff, #00ffaa);
+      border-radius: 50%;
+    }
+    nav {
+      display: flex;
+      gap: 24px;
+    }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: var(--text-main);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    #fpsCounter {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: var(--accent-green);
+      background: rgba(4, 3, 10, 0.5);
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .btn-header {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-header:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .scroll-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      pointer-events: none;
+    }
+    .section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 120px 20px 40px 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .badge {
+      background: rgba(124, 82, 255, 0.15);
+      border: 1px solid rgba(124, 82, 255, 0.3);
+      color: #b294ff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: auto;
+    }
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 16px 0;
+      max-width: 800px;
+      background: linear-gradient(180deg, #ffffff 60%, #a5a3c2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.6;
+      margin: 0 auto 32px auto;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      width: 100%;
+      margin-top: 40px;
+      pointer-events: auto;
+    }
     .card {
-      flex: 1; border-radius: 12px; overflow: hidden; position: relative;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 32px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      text-align: left;
+      transition: transform 0.2s, border-color 0.2s;
     }
-    .card label {
-      position: absolute; top: 12px; left: 12px; z-index: 10;
-      color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.05em;
+    .card:hover {
+      border-color: rgba(124, 82, 255, 0.2);
+      transform: translateY(-2px);
     }
-    .card aurora-bg { display: block; width: 100%; height: 100%; }
+    .card h3 {
+      margin: 0 0 12px 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .btn-primary {
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
+      pointer-events: auto;
+    }
+    .btn-primary:hover {
+      background: var(--accent-green);
+      box-shadow: 0 0 20px rgba(0, 255, 170, 0.4);
+    }
+    .scroll-hint {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      opacity: 0.5;
+      margin-top: auto;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <label>Default Colors</label>
-      <aurora-bg density="0.5" speed="0.6"></aurora-bg>
-    </div>
-    <div class="card">
-      <label>Warm Palette</label>
-      <aurora-bg colors="#ff6b6b,#ffd93d,#ff8a5c" density="0.7" interactive></aurora-bg>
-    </div>
-    <div class="card">
-      <label>Cool Palette</label>
-      <aurora-bg colors="#00d2ff,#3a7bd5,#00ff88" density="0.9" speed="1.2"></aurora-bg>
-    </div>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon"></div>
+    <span>Aurora Studio</span>
   </div>
-  <script src="../dist/aurora.umd.js"></script>
-  <script>auroraBg.defineAuroraBg()</script>
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#features">Features</a>
+  </nav>
+  <div class="header-actions">
+    <div id="fpsCounter">FPS: --</div>
+    <a href="https://github.com/anomalyco/aurora-bg" class="btn-header">GitHub</a>
+  </div>
+</header>
+
+<aurora-bg
+  id="bg"
+  mountains
+  scroll-factor="0.3"
+  intensity="1.2"
+  density="0.6"
+  speed="0.8"
+  opacity="0.85"
+></aurora-bg>
+
+<div class="scroll-container">
+  <main id="hero" class="section">
+    <div class="badge">
+      <span style="display:inline-block; width:6px; height:6px; background:#00ffaa; border-radius:50%"></span>
+      Active Field Simulation
+    </div>
+    <h1>Aurora Borealis<br />Canvas Engine</h1>
+    <p class="hero-desc">
+      Framework-agnostic, zero-dependency aurora borealis animation.
+      Physical magnetic particle rendering designed for serene backgrounds.
+    </p>
+    <div style="margin-bottom: 40px;">
+      <a href="#features" class="btn-primary">Explore Features</a>
+    </div>
+    <div class="scroll-hint">Scroll to discover</div>
+  </main>
+
+  <section id="features" class="section">
+    <div class="badge">Zero Dependencies</div>
+    <h2>Beautiful by Default</h2>
+    <p class="hero-desc">
+      Twinkling star fields, drifting ion particles, and multi-layered
+      magnetic aurora curtains — all in a lightweight canvas library.
+    </p>
+    <div class="grid-container">
+      <div class="card">
+        <h3>Volumetric Shading</h3>
+        <p>Simulates deep cloud-like gas densities for a true atmospheric glow effect.</p>
+      </div>
+      <div class="card">
+        <h3>Dynamic Hue-Shift</h3>
+        <p>Colors slowly morph over time, keeping the experience fresh and profoundly calming.</p>
+      </div>
+      <div class="card">
+        <h3>Scroll Parallax</h3>
+        <p>Optional scroll-driven parallax adds depth across stars, curtains, and terrain.</p>
+      </div>
+      <div class="card">
+        <h3>Accessibility First</h3>
+        <p>Animation fades to a serene background presence after a few seconds.</p>
+      </div>
+      <div class="card">
+        <h3>Web Component</h3>
+        <p>Use declaratively as <code>&lt;aurora-bg&gt;</code> or imperatively via the <code>AuroraEngine</code> class.</p>
+      </div>
+      <div class="card">
+        <h3>Customizable</h3>
+        <p>Control colors, density, speed, opacity, intensity, and scroll factor via attributes or options.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="../dist/aurora.umd.js"></script>
+<script>
+  auroraBg.defineAuroraBg()
+
+  const fpsEl = document.getElementById('fpsCounter')
+  let frameCount = 0
+  let lastFpsUpdate = 0
+
+  function updateFps(timestamp) {
+    frameCount++
+    if (timestamp > lastFpsUpdate + 1000) {
+      const fps = Math.round((frameCount * 1000) / (timestamp - lastFpsUpdate))
+      fpsEl.textContent = 'FPS: ' + fps
+      lastFpsUpdate = timestamp
+      frameCount = 0
+    }
+    requestAnimationFrame(updateFps)
+  }
+  requestAnimationFrame(updateFps)
+</script>
 </body>
 </html>

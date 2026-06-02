@@ -14,6 +14,7 @@ export class AuroraBgElement extends HTMLElement {
   private engine: AuroraEngine | null = null
   private prefersReducedMotion = false
   private resizeObserver: ResizeObserver | null = null
+  private scrollHandler: (() => void) | null = null
 
   constructor() {
     super()
@@ -30,10 +31,17 @@ export class AuroraBgElement extends HTMLElement {
     if (!this.prefersReducedMotion) this.engine.start()
     this.resizeObserver = new ResizeObserver(() => this.engine?.resize())
     this.resizeObserver.observe(this)
+
+    this.scrollHandler = () => this.engine?.setScroll(window.scrollY)
+    window.addEventListener('scroll', this.scrollHandler, { passive: true })
   }
 
   disconnectedCallback(): void {
     this.resizeObserver?.disconnect()
+    if (this.scrollHandler) {
+      window.removeEventListener('scroll', this.scrollHandler)
+      this.scrollHandler = null
+    }
     this.engine?.destroy()
   }
 
@@ -43,7 +51,9 @@ export class AuroraBgElement extends HTMLElement {
       density: this.parseNumber('density'),
       speed: this.parseNumber('speed'),
       opacity: this.parseNumber('opacity'),
-      interactive: this.hasAttribute('interactive'),
+      intensity: this.parseNumber('intensity'),
+      scrollFactor: this.parseNumber('scroll-factor'),
+      mountains: this.hasAttribute('mountains'),
     }
   }
 

@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.0] — 2026-06-01
+
+### Added
+- Full aurora borealis rendering engine with 4-layer magnetic curtain simulation
+- Twinkling star field with parallax support
+- Drifting ion micro-particles
+- Accessibility fade-in: peak intensity for 6s, then calm background presence
+- `intensity` option for overall brightness control (0–2)
+- `scrollFactor` option and `setScroll()` method for scroll-based parallax
+- `mountains` option for rendering animated mountain silhouettes
+- Premium demo page with glassmorphic UI and FPS counter
+- Expanded test coverage for engine lifecycle and options
+
 ## [0.1.0] — 2026-05-27
 
 ### Added

@@ -3,5 +3,7 @@ export interface AuroraOptions {
   density?: number
   speed?: number
   opacity?: number
-  interactive?: boolean
+  intensity?: number
+  scrollFactor?: number
+  mountains?: boolean
 }

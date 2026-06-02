@@ -25,7 +25,7 @@
 ```html
 <script src="https://cdn.jsdelivr.net/npm/aurora-bg/dist/aurora.umd.js"></script>
 <script>auroraBg.defineAuroraBg()</script>
-<aurora-bg colors="#00ff88,#00aaff" density="0.7" interactive></aurora-bg>
+<aurora-bg colors="#00ff88,#00aaff" density="0.7"></aurora-bg>
 ```
 
 ### Option B: npm
@@ -53,7 +53,6 @@ const engine = new AuroraEngine(canvas, {
   colors: ['#00ff88', '#00aaff'],
   density: 0.7,
   speed: 1.0,
-  interactive: true,
 })
 engine.start()
 ```
@@ -68,7 +67,9 @@ engine.start()
 | `density` | `number` | `0.5` | Particle density (0–1) |
 | `speed` | `number` | `1.0` | Animation speed multiplier |
 | `opacity` | `number` | `0.8` | Overall opacity (0–1) |
-| `interactive` | `boolean` | `true` | Mouse-reactive particles |
+| `intensity` | `number` | `1.0` | Aurora brightness (0–2) |
+| `scrollFactor` | `number` | `0.5` | Scroll parallax influence |
+| `mountains` | `boolean` | `false` | Render animated silhouettes |
 
 ### `AuroraEngine` Methods
 
@@ -78,11 +79,12 @@ engine.start()
 | `stop()` | Pause the animation loop |
 | `destroy()` | Clean up all resources (canvas, listeners, RAF) |
 | `setOptions(opts)` | Update options at runtime |
+| `setScroll(y)` | Update scroll position for parallax |
 | `resize(w?, h?)` | Resize canvas (auto-detects parent if called without args) |
 
 ### `<aurora-bg>` Attributes
 
-Same as options, but as HTML attributes. Boolean attributes (like `interactive`) are true when present.
+Same as options, but as HTML attributes. Boolean attributes (like `mountains`) are true when present.
 
 ```html
 <aurora-bg
@@ -90,7 +92,9 @@ Same as options, but as HTML attributes. Boolean attributes (like `interactive`)
   density="0.7"
   speed="0.8"
   opacity="0.9"
-  interactive
+  intensity="1.2"
+  scroll-factor="0.3"
+  mountains
 ></aurora-bg>
 ```
 

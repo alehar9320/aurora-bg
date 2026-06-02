@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora BG — Standalone Demo</title>
+    <style>
+        :root {
+            --bg-dark: #020005;
+            --text-main: #ffffff;
+            --text-muted: #8e8da4;
+            --accent-glow: #7c52ff;
+            --accent-green: #00ffaa;
+            --card-bg: rgba(4, 3, 10, 0.65);
+            --card-border: rgba(255, 255, 255, 0.05);
+        }
+        body, html {
+            margin: 0; padding: 0; width: 100%;
+            background-color: var(--bg-dark);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            box-sizing: border-box;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            pointer-events: auto;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-icon {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #7c52ff, #00ffaa);
+            border-radius: 50%;
+        }
+        nav {
+            display: flex;
+            gap: 24px;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: var(--text-main);
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        #fpsCounter {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            background: rgba(4, 3, 10, 0.5);
+            border: 1px solid var(--card-border);
+            padding: 6px 12px;
+            border-radius: 6px;
+            letter-spacing: 0.05em;
+        }
+        .btn-header {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-header:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .scroll-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            pointer-events: none;
+        }
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 20px 40px 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .badge {
+            background: rgba(124, 82, 255, 0.15);
+            border: 1px solid rgba(124, 82, 255, 0.3);
+            color: #b294ff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            pointer-events: auto;
+        }
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin: 0 0 16px 0;
+            max-width: 800px;
+            background: linear-gradient(180deg, #ffffff 60%, #a5a3c2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.6;
+            margin: 0 auto 32px auto;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            width: 100%;
+            margin-top: 40px;
+            pointer-events: auto;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 32px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            text-align: left;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            border-color: rgba(124, 82, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .card h3 {
+            margin: 0 0 12px 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .card p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .btn-primary {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background 0.2s, box-shadow 0.2s;
+            pointer-events: auto;
+        }
+        .btn-primary:hover {
+            background: var(--accent-green);
+            box-shadow: 0 0 20px rgba(0, 255, 170, 0.4);
+        }
+        .scroll-hint {
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            opacity: 0.5;
+            margin-top: auto;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-icon"></div>
+        <span>Creator Studio</span>
+    </div>
+    <nav>
+        <a href="#about">Philosophy</a>
+        <a href="#features">Architecture</a>
+    </nav>
+    <div class="header-actions">
+        <div id="fpsCounter">FPS: --</div>
+        <a href="#" class="btn-header">Claim Tokens</a>
+    </div>
+</header>
+
+<canvas id="auroraCanvas"></canvas>
+
+<div class="scroll-container">
+    <main class="section">
+        <div class="badge">
+            <span style="display:inline-block; width:6px; height:6px; background:#00ffaa; border-radius:50%"></span>
+            Active Field Simulation Open
+        </div>
+        <h1>Foundation for Cosmic AI Creation</h1>
+        <p class="hero-desc">Accelerate and scale visual concepts using a physical magnetic particle rendering core designed for complete serenity.</p>
+        <div style="margin-bottom: 40px;">
+            <a href="#about" class="btn-primary">Explore Architecture</a>
+        </div>
+        <div class="scroll-hint">Scroll down to inspect deep magnetic lines</div>
+    </main>
+
+    <section id="about" class="section">
+        <div class="badge">Dynamic Polar Coordinates</div>
+        <h2>Atmospheric Mystery</h2>
+        <p class="hero-desc">Watch as the magnetic fields bend the glowing solar winds. Silver-grey mist drifts peacefully into rich cobalt space gradients.</p>
+
+        <div class="grid-container">
+            <div class="card">
+                <h3>Volumetric Shading</h3>
+                <p>Simulating deep cloud-like gas densities instead of simple lines for a true mysterious atmosphere.</p>
+            </div>
+            <div class="card">
+                <h3>Solar Wind Friction</h3>
+                <p>Tiny ion dust particles float and trace the vector fields, adding a subtle micro-layer of organic activity.</p>
+            </div>
+            <div class="card">
+                <h3>Dynamic Hue-Shift</h3>
+                <p>Colors slowly adapt, keeping the visual experience fresh, unpredictably gorgeous, yet profoundly calming.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    const canvas = document.getElementById('auroraCanvas')
+    const ctx = canvas.getContext('2d')
+    const fpsElement = document.getElementById('fpsCounter')
+
+    let width, height
+    let stars = []
+    let ions = []
+    let mountainsBack = []
+    let mountainsFront = []
+    let scrollY = 0
+    let maxScroll = 1
+    let animationStartTime = 0
+
+    let lastTime = 0
+    let frameCount = 0
+    let fps = 0
+    let lastFpsUpdate = 0
+
+    const starCount = 200
+    const ionCount = 80
+
+    function init() {
+        width = canvas.width = window.innerWidth
+        height = canvas.height = window.innerHeight
+        maxScroll = document.documentElement.scrollHeight - window.innerHeight || 1
+        generateStars()
+        generateIons()
+        generateMountains()
+    }
+
+    function generateStars() {
+        stars = []
+        for (let i = 0; i < starCount; i++) {
+            stars.push({
+                x: Math.random() * width,
+                y: Math.random() * height * 0.9,
+                radius: Math.random() * 0.9,
+                alpha: Math.random() * 0.6,
+                blinkSpeed: 0.0002 + Math.random() * 0.0005,
+                blinkPhase: Math.random() * Math.PI * 2,
+                parallax: 0.05 + Math.random() * 0.2,
+            })
+        }
+    }
+
+    function generateIons() {
+        ions = []
+        for (let i = 0; i < ionCount; i++) {
+            ions.push({
+                x: Math.random() * width,
+                y: Math.random() * height * 0.7,
+                size: 0.5 + Math.random() * 1.5,
+                speed: 0.2 + Math.random() * 0.5,
+                amplitude: 15 + Math.random() * 30,
+                frequency: 0.002 + Math.random() * 0.004,
+                phase: Math.random() * Math.PI * 2,
+                alpha: 0.1 + Math.random() * 0.4,
+            })
+        }
+    }
+
+    function generateMountains() {
+        mountainsBack = []
+        mountainsFront = []
+        let hBack = height - 120
+        let hFront = height - 40
+        for (let x = 0; x <= width + 20; x += 15) {
+            hBack += (Math.random() - 0.5) * 12
+            if (hBack > height - 60) hBack = height - 60
+            if (hBack < height - 240) hBack = height - 240
+            mountainsBack.push({ x, y: hBack })
+            hFront += (Math.random() - 0.5) * 8
+            if (hFront > height) hFront = height
+            if (hFront < height - 100) hFront = height - 100
+            mountainsFront.push({ x, y: hFront })
+        }
+    }
+
+    function drawBackground(scrollFraction) {
+        let grad = ctx.createLinearGradient(0, 0, 0, height)
+        let color1 = interpolateColor('#010003', '#000001', scrollFraction)
+        let color2 = interpolateColor('#02010c', '#010003', scrollFraction)
+        let color3 = '#020005'
+        grad.addColorStop(0, color1)
+        grad.addColorStop(0.5, color2)
+        grad.addColorStop(1, color3)
+        ctx.fillStyle = grad
+        ctx.fillRect(0, 0, width, height)
+    }
+
+    function interpolateColor(color1, color2, factor) {
+        let c1 = parseInt(color1.slice(1), 16)
+        let c2 = parseInt(color2.slice(1), 16)
+        let r1 = (c1 >> 16) & 255, g1 = (c1 >> 8) & 255, b1 = c1 & 255
+        let r2 = (c2 >> 16) & 255, g2 = (c2 >> 8) & 255, b2 = c2 & 255
+        let r = Math.round(r1 + (r2 - r1) * factor)
+        let g = Math.round(g1 + (g2 - g1) * factor)
+        let b = Math.round(b1 + (b2 - b1) * factor)
+        return `rgb(${r}, ${g}, ${b})`
+    }
+
+    function drawStars(time, scrollFraction) {
+        ctx.fillStyle = 'white'
+        stars.forEach(star => {
+            let pulse = Math.pow(Math.sin(time * star.blinkSpeed + star.blinkPhase), 2)
+            let currentAlpha = star.alpha * 0.1 + pulse * 0.3
+            let currentY = star.y + (scrollY * star.parallax)
+            let wrapY = currentY % height
+            if (wrapY < 0) wrapY += height
+            ctx.globalAlpha = Math.max(0, Math.min(1, currentAlpha))
+            ctx.beginPath()
+            ctx.arc(star.x, wrapY, star.radius, 0, Math.PI * 2)
+            ctx.fill()
+        })
+        ctx.globalAlpha = 1.0
+    }
+
+    function drawIons(time) {
+        ctx.fillStyle = 'white'
+        ions.forEach(ion => {
+            let xPos = (ion.x + time * 0.03 * ion.speed) % (width + 100) - 50
+            let waveOffset = Math.sin(xPos * ion.frequency + time * 0.001 + ion.phase) * ion.amplitude
+            let yPos = ion.y + waveOffset
+            let edgeFade = Math.sin((xPos / width) * Math.PI)
+            ctx.globalAlpha = Math.max(0, ion.alpha * edgeFade * 0.7)
+            ctx.beginPath()
+            ctx.arc(xPos, yPos, ion.size, 0, Math.PI * 2)
+            ctx.fill()
+        })
+        ctx.globalAlpha = 1.0
+    }
+
+    function drawAurora(time, startTime, scrollFraction) {
+        ctx.globalCompositeOperation = 'screen'
+
+        const zenithX = width * 0.5
+        const zenithY = -height * 1.5
+
+        // Use elapsed time since animation start for fade timing
+        const elapsed = time - startTime
+        const hueShift = (time * 0.003) % 360
+
+        const solarSurge = 0.7 + Math.sin(time * 0.0008) * 0.25 + Math.cos(time * 0.0003) * 0.15
+
+        const FADE_START_MS = 6000
+        const FADE_DURATION_MS = 8000
+        let initialMultiplier = 1.6
+        let finalMultiplier = 0.75
+        let globalFadeFactor = initialMultiplier
+        if (elapsed > FADE_START_MS) {
+            let progress = Math.min(1, (elapsed - FADE_START_MS) / FADE_DURATION_MS)
+            globalFadeFactor = initialMultiplier - progress * (initialMultiplier - finalMultiplier)
+        }
+
+        const curtains = [
+            {
+                baseHue: 200,
+                saturation: '20%',
+                maxAlpha: 0.35 * (1 - scrollFraction * 0.5) * globalFadeFactor,
+                amplitude: 380,
+                baseY: height * 0.30,
+                speed: 0.00018,
+                frequency: 0.0008,
+                exponent: 2.0,
+                weight: 'left',
+            },
+            {
+                baseHue: 190,
+                saturation: '80%',
+                maxAlpha: 0.30 * (1 - scrollFraction * 0.3) * globalFadeFactor,
+                amplitude: 320,
+                baseY: height * 0.35,
+                speed: 0.00030,
+                frequency: 0.0012,
+                exponent: 2.2,
+                weight: 'center',
+            },
+            {
+                baseHue: 275,
+                saturation: '90%',
+                maxAlpha: 0.38 * globalFadeFactor,
+                amplitude: 400,
+                baseY: height * 0.40,
+                speed: 0.00025,
+                frequency: 0.0010,
+                exponent: 2.4,
+                weight: 'right',
+            },
+            {
+                baseHue: 315,
+                saturation: '95%',
+                maxAlpha: 0.18 * scrollFraction * globalFadeFactor,
+                amplitude: 280,
+                baseY: height * 0.48,
+                speed: 0.00045,
+                frequency: 0.0018,
+                exponent: 4.0,
+                weight: 'right',
+            },
+        ]
+
+        const marginPadding = 180
+
+        curtains.forEach(curtain => {
+            const currentAlphaLimit = Math.min(1.0, curtain.maxAlpha * Math.max(0.2, Math.min(1.2, solarSurge)))
+            if (currentAlphaLimit <= 0) return
+
+            const currentHue = (curtain.baseHue + hueShift) % 360
+            const colorTop = `hsla(${currentHue}, ${curtain.saturation}, 60%, 0)`
+            const colorMid = `hsla(${currentHue}, ${curtain.saturation}, 55%, ${currentAlphaLimit})`
+            const colorBot = `hsla(${(currentHue + 30) % 360}, ${curtain.saturation}, 50%, 0)`
+
+            const step = curtain.exponent > 3.5 ? 1.0 : 2.0
+
+            for (let x = -marginPadding; x < width + marginPadding; x += step) {
+                let wave = Math.sin(x * curtain.frequency + elapsed * curtain.speed) * 0.6
+                let ripple = Math.sin(x * curtain.frequency * 3.2 - elapsed * curtain.speed * 2.1) * 0.25
+                let micro = Math.sin(x * curtain.frequency * 6.5 + elapsed * curtain.speed * 4.0) * 0.15
+                let fold = wave + ripple + micro
+
+                let spatialBias = 1.0
+                if (curtain.weight === 'left') {
+                    spatialBias = Math.max(0, 1.0 - x / width)
+                } else if (curtain.weight === 'right') {
+                    spatialBias = Math.max(0, x / width)
+                }
+                if (spatialBias <= 0) continue
+
+                let baseX = x
+                let baseY = curtain.baseY + fold * 140
+
+                let dx = baseX - zenithX
+                let dy = baseY - zenithY
+                let dist = Math.sqrt(dx * dx + dy * dy)
+                let ux = dx / dist
+                let uy = dy / dist
+
+                let energyAlpha = Math.pow((fold + 1.0) / 2.0, curtain.exponent) * 2.0 * spatialBias
+                if (energyAlpha < 0.005) continue
+
+                let rayLength = curtain.amplitude * (0.8 + energyAlpha * 0.4)
+
+                let startX = baseX - ux * (rayLength * 0.5)
+                let startY = baseY - uy * (rayLength * 0.5)
+                let endX = baseX + ux * (rayLength * 0.5)
+                let endY = baseY + uy * (rayLength * 0.5)
+
+                let verticalFade = 1.0
+                const fadeStart = height * 0.5
+                const fadeEnd = height * 0.8
+                if (endY > fadeStart) {
+                    verticalFade = Math.max(0, 1.0 - (endY - fadeStart) / (fadeEnd - fadeStart))
+                }
+
+                let finalAlpha = Math.min(1.0, energyAlpha * verticalFade)
+                if (finalAlpha < 0.005) continue
+
+                ctx.globalAlpha = finalAlpha
+
+                let rayGrad = ctx.createLinearGradient(startX, startY, endX, endY)
+                rayGrad.addColorStop(0, colorTop)
+                rayGrad.addColorStop(0.4, colorMid)
+                rayGrad.addColorStop(1, colorBot)
+
+                ctx.strokeStyle = rayGrad
+                ctx.lineWidth = step === 1.0 ? 1.5 : 2.0
+
+                ctx.beginPath()
+                ctx.moveTo(startX, startY)
+                ctx.lineTo(endX, endY)
+                ctx.stroke()
+            }
+        })
+
+        ctx.globalCompositeOperation = 'source-over'
+        ctx.globalAlpha = 1.0
+    }
+
+    function drawMountains(scrollFraction) {
+        const offset = scrollFraction * height * 0.5
+
+        let backGrad = ctx.createLinearGradient(0, height - 300 + offset, 0, height + offset)
+        backGrad.addColorStop(0, '#030209')
+        backGrad.addColorStop(1, '#010003')
+        ctx.fillStyle = backGrad
+        ctx.beginPath()
+        ctx.moveTo(0, height + offset)
+        mountainsBack.forEach(p => ctx.lineTo(p.x, p.y + offset))
+        ctx.lineTo(width, height + offset)
+        ctx.fill()
+
+        ctx.fillStyle = '#010002'
+        ctx.beginPath()
+        ctx.moveTo(0, height + offset)
+        mountainsFront.forEach(p => ctx.lineTo(p.x, p.y + offset))
+        ctx.lineTo(width, height + offset)
+        ctx.fill()
+    }
+
+    function animate(timestamp) {
+        if (animationStartTime === 0) animationStartTime = timestamp
+
+        frameCount++
+        if (timestamp > lastFpsUpdate + 1000) {
+            fps = Math.round((frameCount * 1000) / (timestamp - lastFpsUpdate))
+            fpsElement.textContent = `FPS: ${fps}`
+            lastFpsUpdate = timestamp
+            frameCount = 0
+        }
+
+        ctx.clearRect(0, 0, width, height)
+
+        const scrollFraction = Math.min(1, Math.max(0, scrollY / maxScroll))
+
+        drawBackground(scrollFraction)
+        drawStars(timestamp, scrollFraction)
+        drawAurora(timestamp, animationStartTime, scrollFraction)
+        drawIons(timestamp)
+        drawMountains(scrollFraction)
+
+        requestAnimationFrame(animate)
+    }
+
+    window.addEventListener('scroll', () => {
+        scrollY = window.scrollY
+    })
+
+    window.addEventListener('resize', init)
+    init()
+    requestAnimationFrame(animate)
+</script>
+</body>
+</html>
