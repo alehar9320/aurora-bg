@@ -4,7 +4,8 @@ description: >
   junior-engineer-safe implementation plans without writing code.
   Tab-cycle to this agent for analysis, design, and planning.
 mode: primary
-model: opencode/deepseek-v4-flash-free?variant=max
+model: opencode/deepseek-v4-flash-free
+variant: max
 permission:
   edit: deny
   bash:
