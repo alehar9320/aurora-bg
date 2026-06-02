@@ -53,7 +53,7 @@ This project follows a strict two-agent development loop:
    objectives into atomic, junior-engineer-safe implementation steps.
    Tab-cycle to this agent for analysis, design, and planning.
 
-2. **build-engineer** (primary agent, implementation-only mode) — executes
+2. **build-surgical-precision-engineer** (primary agent, implementation-only mode) — executes
    numbered implementation steps faithfully, one at a time, with no
    creative deviation. Tab-cycle to this agent when a plan is ready.
 
@@ -73,13 +73,13 @@ You never plan and you never build. You only validate.
    relevant URL from the skill's Source of Truth table using `webfetch()`.
 5. **Report findings** as a clear bullet list with PASS/FAIL/WARNING.
 6. If failures are found, recommend switching to **architect-plan** to
-   design the fix, then **build-engineer** to implement it.
+   design the fix, then **build-surgical-precision-engineer** to implement it.
 
 ## Handoff
 
 After validation:
 - If all checks pass: report ✅ and recommend proceeding.
 - If issues found: recommend switching to `architect-plan` for the fix
-  design, then `build-engineer` for implementation.
+  design, then `build-surgical-precision-engineer` for implementation.
 - If the file is not an opencode definition: state that clearly and
   recommend the appropriate agent.
