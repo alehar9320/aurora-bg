@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurora BG — Canvas Dev</title>
+  <style>
+    :root {
+      --bg-dark: #020005;
+      --accent-green: #00ffaa;
+      --card-border: rgba(255, 255, 255, 0.05);
+    }
+    body, html {
+      margin: 0; padding: 0; width: 100%; height: 100%;
+      background-color: var(--bg-dark);
+      overflow: hidden;
+    }
+    aurora-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      display: block;
+    }
+    #fpsCounter {
+      position: fixed;
+      top: 20px; right: 20px;
+      z-index: 10;
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: var(--accent-green);
+      background: rgba(4, 3, 10, 0.5);
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+<aurora-bg
+  id="bg"
+  mountains
+  scroll-factor="0.3"
+  intensity="1.2"
+  density="0.6"
+  speed="0.8"
+  opacity="0.85"
+></aurora-bg>
+
+<div id="fpsCounter">FPS: --</div>
+
+<script src="../dist/aurora.umd.js"></script>
+<script>
+  auroraBg.defineAuroraBg()
+
+  const fpsEl = document.getElementById('fpsCounter')
+  let frameCount = 0
+  let lastFpsUpdate = 0
+
+  function updateFps(timestamp) {
+    frameCount++
+    if (timestamp > lastFpsUpdate + 1000) {
+      const fps = Math.round((frameCount * 1000) / (timestamp - lastFpsUpdate))
+      fpsEl.textContent = 'FPS: ' + fps
+      lastFpsUpdate = timestamp
+      frameCount = 0
+    }
+    requestAnimationFrame(updateFps)
+  }
+  requestAnimationFrame(updateFps)
+</script>
+</body>
+</html>

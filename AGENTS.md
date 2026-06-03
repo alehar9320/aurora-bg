@@ -8,6 +8,8 @@ npm package: `aurora-bg` | Web Component: `<aurora-bg>`
 - `npm install` — install deps
 - `npm run build` — full build (types + JS bundles)
 - `npm run dev` — watch mode
+- `npm run dev:example` — watch + serve examples at http://localhost:3000
+- `npm run demo` — serve full website demo at http://localhost:4000
 - `npm test` — run vitest
 - `npm run lint` — ESLint
 - `npm run format` — Prettier

@@ -117,4 +117,4 @@ The skeleton is ready. The next engineering task is to fill in the aurora partic
 | `src/engine.ts` | `loop()` method — particle system, gradient aurora bands, mouse interaction |
 | `src/aurora-element.ts` | Any additional attribute mappings needed |
 | `tests/engine.test.ts` | Unit tests for particle math, rendering, lifecycle |
-| `examples/basic.html` | More palette presets, framework integration demos |
+| `examples/canvas.html` | More palette presets, framework integration demos |

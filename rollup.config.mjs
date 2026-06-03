@@ -23,11 +23,11 @@ export default [
       ...(process.env.SERVE
         ? [
             serve({
-              open: '/examples/basic.html',
+              open: '/examples/canvas.html',
               contentBase: '.',
               host: 'localhost',
               port: 3000,
-              historyApiFallback: '/examples/basic.html',
+              historyApiFallback: '/examples/canvas.html',
             }),
             livereload({ watch: 'dist', verbose: false }),
           ]

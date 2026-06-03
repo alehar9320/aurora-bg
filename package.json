@@ -28,6 +28,7 @@
     "build": "npm run build:types && npm run build:js",
     "dev": "rollup -c rollup.config.mjs -w",
     "dev:example": "rollup -c rollup.config.mjs -w --environment SERVE",
+    "demo": "node scripts/serve-demo.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint src/",

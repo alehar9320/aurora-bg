@@ -419,8 +419,8 @@
 
         const FADE_START_MS = 6000
         const FADE_DURATION_MS = 8000
-        let initialMultiplier = 1.6
-        let finalMultiplier = 0.75
+        let initialMultiplier = 2.4
+        let finalMultiplier = 1.0
         let globalFadeFactor = initialMultiplier
         if (elapsed > FADE_START_MS) {
             let progress = Math.min(1, (elapsed - FADE_START_MS) / FADE_DURATION_MS)

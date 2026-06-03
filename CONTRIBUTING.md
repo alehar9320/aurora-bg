@@ -5,7 +5,8 @@
 2. Clone your fork
 3. `npm install`
 4. `npm run dev` (watch mode)
-5. Open `examples/basic.html` in a browser
+5. Open `examples/canvas.html` in a browser (see canvas in isolation)
+6. `npm run demo` (full website demo at http://localhost:4000)
 
 ## Project Structure
 ```

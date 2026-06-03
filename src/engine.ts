@@ -260,7 +260,7 @@ export class AuroraEngine {
     this.ctx.fillRect(0, 0, width, height)
   }
 
-  private drawStars(time: number, scrollFraction: number): void {
+  private drawStars(time: number, _scrollFraction: number): void {
     const { height } = this.canvas
     if (height === 0) return
     for (const star of this.stars) {
