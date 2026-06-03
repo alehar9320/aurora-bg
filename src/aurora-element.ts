@@ -46,15 +46,21 @@ export class AuroraBgElement extends HTMLElement {
   }
 
   private parseOptions(): AuroraOptions {
-    return {
-      colors: this.getAttribute('colors')?.split(',') ?? undefined,
-      density: this.parseNumber('density'),
-      speed: this.parseNumber('speed'),
-      opacity: this.parseNumber('opacity'),
-      intensity: this.parseNumber('intensity'),
-      scrollFactor: this.parseNumber('scroll-factor'),
-      mountains: this.hasAttribute('mountains'),
-    }
+    const opts: AuroraOptions = {}
+    const colors = this.getAttribute('colors')
+    if (colors !== null) opts.colors = colors.split(',')
+    const density = this.parseNumber('density')
+    if (density !== undefined) opts.density = density
+    const speed = this.parseNumber('speed')
+    if (speed !== undefined) opts.speed = speed
+    const opacity = this.parseNumber('opacity')
+    if (opacity !== undefined) opts.opacity = opacity
+    const intensity = this.parseNumber('intensity')
+    if (intensity !== undefined) opts.intensity = intensity
+    const scrollFactor = this.parseNumber('scroll-factor')
+    if (scrollFactor !== undefined) opts.scrollFactor = scrollFactor
+    if (this.hasAttribute('mountains')) opts.mountains = true
+    return opts
   }
 
   private parseNumber(attr: string): number | undefined {

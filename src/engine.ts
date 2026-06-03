@@ -100,14 +100,13 @@ export class AuroraEngine {
     this.canvas = canvas
     this.ctx = canvas.getContext('2d')!
     this.options = {
-      colors: ['#00ff88', '#00aaff', '#ff44ff'],
-      density: 0.5,
-      speed: 1.0,
-      opacity: 0.8,
-      intensity: 1.0,
-      scrollFactor: 0.5,
-      mountains: false,
-      ...options,
+      colors: options?.colors ?? ['#00ff88', '#00aaff', '#ff44ff'],
+      density: options?.density ?? 0.5,
+      speed: options?.speed ?? 1.0,
+      opacity: options?.opacity ?? 0.8,
+      intensity: options?.intensity ?? 1.0,
+      scrollFactor: options?.scrollFactor ?? 0.5,
+      mountains: options?.mountains ?? false,
     }
     if (typeof document !== 'undefined') {
       this.maxScroll = Math.max(
@@ -142,7 +141,12 @@ export class AuroraEngine {
 
   /** Update options at runtime */
   setOptions(options: Partial<AuroraOptions>): void {
-    Object.assign(this.options, options)
+    Object.assign(
+      this.options,
+      Object.fromEntries(
+        Object.entries(options).filter(([_, v]) => v !== undefined),
+      ),
+    )
     this.initCurtainHues()
     if (
       options.colors ||

@@ -16,9 +16,10 @@
 │   ├── branch-b-threejs/
 │   │   ├── postfx-composer.md             ← EffectComposer pipeline
 │   │   └── shader-engineer.md             ← ShaderMaterial / custom shaders
-│   └── support/
-│       ├── build-master.md                ← build/test/lint/release
-│       └── opencode-defs-validator.md     ← config validation vs docs/source
+    │   └── support/
+    │       ├── build-master.md                ← build/test/lint/release
+    │       ├── opencode-defs-validator.md     ← config validation vs docs/source
+    │       └── open-source-mentor.md          ← FOSS compliance audits (subagent)
 │
 └── skills/
     ├── architect-plan/                    ← planning decomposition rules
@@ -27,10 +28,11 @@
     ├── b-threejs-expert/                  ← Branch B: Three.js + docs protocol
     ├── b-postfx/                          ← EffectComposer + passes
     ├── b-shader/                          ← ShaderMaterial conventions
-    └── opencode-definitions/              ← opencode config validation rules
+    ├── opencode-definitions/              ← opencode config validation rules
+    └── oss-practices/                     ← FOSS best practices knowledge base
 
 Convention:
   agents/ → nested by role
-  skills/ → prefixed by branch (a- = WebGL2, b- = Three.js)
+  skills/ → prefixed by branch (a- = WebGL2, b- = Three.js, oss- = open source)
   Sub-agent files load their matching skill via skill({ name: '...' })
 ```

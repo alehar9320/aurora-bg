@@ -100,6 +100,7 @@ When the task matches a specialized sub-domain, recommend tab-cycling:
 | GLSL shader writing, debugging, optimization | `branch-a-webgl2/glsl-shader-dev` | Exact v300 es templates, debug flow, getShaderInfoLog patterns |
 | Three.js EffectComposer, bloom, DOF, SSR, post-FX | `branch-b-threejs/postfx-composer` | Verified import paths, pass ordering, OutputPass, resize/disposal |
 | Three.js ShaderMaterial, custom shaders, uniforms | `branch-b-threejs/shader-engineer` | Three.js-specific uniform conventions, glslVersion, defines, lights flags |
+| FOSS compliance audit, licensing, governance, release practices | `support/open-source-mentor` | OSS best-practices mentor; read-only audit + recommendations |
 | General 3D implementation (none of the above) | Stay here | General branch standards are sufficient |
 
 ---
