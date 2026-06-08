@@ -1,10 +1,10 @@
 # Aurora BG
 
 [![npm](https://img.shields.io/npm/v/aurora-bg)](https://www.npmjs.com/package/aurora-bg)
-[![CI](https://github.com/<YOUR_GITHUB_USERNAME>/aurora-bg/actions/workflows/ci.yml/badge.svg)](https://github.com/<YOUR_GITHUB_USERNAME>/aurora-bg/actions/workflows/ci.yml)
+[![CI](https://github.com/alehar9320/aurora-bg/actions/workflows/ci.yml/badge.svg)](https://github.com/alehar9320/aurora-bg/actions/workflows/ci.yml)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/aurora-bg)](https://bundlephobia.com/package/aurora-bg)
-[![License](https://img.shields.io/npm/l/aurora-bg)](https://github.com/<YOUR_GITHUB_USERNAME>/aurora-bg/blob/main/LICENSE)
-[![Live Demo](https://img.shields.io/badge/demo-live-blue)](https://<YOUR_GITHUB_USERNAME>.github.io/aurora-bg/)
+[![License](https://img.shields.io/npm/l/aurora-bg)](https://github.com/alehar9320/aurora-bg/blob/main/LICENSE)
+[![Live Demo](https://img.shields.io/badge/demo-live-blue)](https://alehar9320.github.io/aurora-bg/)
 
 > **Native Web aurora borealis background animation.**  
 > Framework-agnostic, zero dependencies. Use it with React, Vue, Angular, Svelte, or vanilla HTML.
@@ -126,4 +126,4 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
 
-MIT © <YOUR_NAME>
+MIT © Alexander Härenstam
