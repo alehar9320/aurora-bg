@@ -18,7 +18,8 @@
 │   │   └── shader-engineer.md             ← ShaderMaterial / custom shaders
 │   ├── support/
 │   │   ├── build-master.md                ← build/test/lint/release
-│   │   ├── code-review-engineer.md         ← [NEW] pre-push code review (Principal SWE + QA)
+│   │   ├── code-review-engineer.md         ← pre-push code review (Principal SWE + QA)
+│   │   ├── docs-engineer.md                ← [NEW] documentation engineer (JSDoc, README, CHANGELOG, landing page)
 │   │   ├── opencode-defs-validator.md     ← config validation vs docs/source
 │   │   └── open-source-mentor.md          ← FOSS compliance audits (subagent)
 │
@@ -29,7 +30,8 @@
     ├── b-threejs-expert/                  ← Branch B: Three.js + docs protocol
     ├── b-postfx/                          ← EffectComposer + passes
     ├── b-shader/                          ← ShaderMaterial conventions
-    ├── code-review/                       ← [NEW] comprehensive code review methodology
+    ├── code-review/                       ← comprehensive code review methodology
+    ├── docs/                              ← [NEW] documentation engineering methodology
     ├── opencode-definitions/              ← opencode config validation rules
     └── oss-practices/                     ← FOSS best practices knowledge base
 
