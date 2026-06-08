@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.0] — 2026-06-08
+### Added
+- TypeDoc-generated API documentation at `docs/api/`
+- Documentation landing page with integrated aurora demo at `docs/index.html`
+- GitHub Actions workflow (`docs.yml`) for automated docs deployment to GitHub Pages
+- `.nojekyll` file for GitHub Pages compatibility
+- `typedoc.json` configuration file
+- `docs:build` and `docs:preview` npm scripts
+- Documentation badge in README
+
 ## [0.2.0] — 2026-06-01
 
 ### Added

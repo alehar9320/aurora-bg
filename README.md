@@ -4,7 +4,8 @@
 [![CI](https://github.com/alehar9320/aurora-bg/actions/workflows/ci.yml/badge.svg)](https://github.com/alehar9320/aurora-bg/actions/workflows/ci.yml)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/aurora-bg)](https://bundlephobia.com/package/aurora-bg)
 [![License](https://img.shields.io/npm/l/aurora-bg)](https://github.com/alehar9320/aurora-bg/blob/main/LICENSE)
-[![Live Demo](https://img.shields.io/badge/demo-live-blue)](https://alehar9320.github.io/aurora-bg/)
+[![Docs](https://img.shields.io/badge/docs-github--pages-blue)](https://alehar9320.github.io/aurora-bg/)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://alehar9320.github.io/aurora-bg/)
 
 > **Native Web aurora borealis background animation.**  
 > Framework-agnostic, zero dependencies. Use it with React, Vue, Angular, Svelte, or vanilla HTML.
