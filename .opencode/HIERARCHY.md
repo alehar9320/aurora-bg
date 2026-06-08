@@ -16,10 +16,11 @@
 │   ├── branch-b-threejs/
 │   │   ├── postfx-composer.md             ← EffectComposer pipeline
 │   │   └── shader-engineer.md             ← ShaderMaterial / custom shaders
-    │   └── support/
-    │       ├── build-master.md                ← build/test/lint/release
-    │       ├── opencode-defs-validator.md     ← config validation vs docs/source
-    │       └── open-source-mentor.md          ← FOSS compliance audits (subagent)
+│   ├── support/
+│   │   ├── build-master.md                ← build/test/lint/release
+│   │   ├── code-review-engineer.md         ← [NEW] pre-push code review (Principal SWE + QA)
+│   │   ├── opencode-defs-validator.md     ← config validation vs docs/source
+│   │   └── open-source-mentor.md          ← FOSS compliance audits (subagent)
 │
 └── skills/
     ├── architect-plan/                    ← planning decomposition rules
@@ -28,6 +29,7 @@
     ├── b-threejs-expert/                  ← Branch B: Three.js + docs protocol
     ├── b-postfx/                          ← EffectComposer + passes
     ├── b-shader/                          ← ShaderMaterial conventions
+    ├── code-review/                       ← [NEW] comprehensive code review methodology
     ├── opencode-definitions/              ← opencode config validation rules
     └── oss-practices/                     ← FOSS best practices knowledge base
 
