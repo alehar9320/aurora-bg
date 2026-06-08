@@ -1,5 +1,25 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- `AI.md` — dedicated AI reference with 42 copy-paste prompts organized by framework and use case
+- `docs/preview.svg` — static aurora borealis preview illustration for README and docs
+- README: YAML frontmatter for AI tool ingestion (`name`, `version`, `keywords`, `exports`)
+- README: "Preview" section with SVG screenshot + live demo link
+- README: "🤖 Copy-Paste Prompts" section (8 framework-specific prompts: vanilla, React, Vue, Svelte, Angular, Next.js, custom canvas, config tuning)
+- README: "Quick Reference" compact code block with all APIs (`AuroraEngine`, `defineAuroraBg`, `<aurora-bg>`)
+- README: "Framework Integration" section (React, Vue 3, Svelte, Angular) with copy-paste code
+- README: "JSON Schema" block for programmatic consumption
+- README: "📖 AI Reference" section linking to `AI.md`
+- `.github/copilot-instructions.md`: expanded from 17 to 80 lines with full API tables, framework integration patterns (React, Vue, Svelte, Angular, Next.js), and copy-paste prompts
+- `AGENTS.md`: quick reference YAML block + "AI Agent Prompts" section (8 prompts)
+- `CONTRIBUTING.md`: project commands table, documentation workflow, AI-friendly contribution guide
+- `docs/index.html`: JSON-LD structured data (SoftwareApplication schema)
+- `docs/index.html`: SVG preview fallback image (shown when Web Component fails to render)
+- `docs/index.html`: "AI Prompts" section with 4 cards linking to the full prompt library
+- `docs/index.html`: AI Reference link in footer
+
 ## [0.3.0] — 2026-06-08
 ### Added
 - TypeDoc-generated API documentation at `docs/api/`

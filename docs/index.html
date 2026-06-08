@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aurora BG — Native Web aurora borealis background animation. Framework-agnostic, zero dependencies, 60fps canvas-powered." />
+  <meta name="application-name" content="aurora-bg" />
   <title>Aurora BG — Native aurora borealis background animation</title>
   <script src="https://cdn.jsdelivr.net/npm/aurora-bg/dist/aurora.umd.js"></script>
   <style>
@@ -276,6 +278,23 @@
       .feature-list { grid-template-columns: 1fr; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "aurora-bg",
+    "applicationCategory": "Multimedia",
+    "operatingSystem": "Browser",
+    "description": "Native Web aurora borealis background animation",
+    "url": "https://github.com/alehar9320/aurora-bg",
+    "installUrl": "https://www.npmjs.com/package/aurora-bg",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -285,6 +304,14 @@
     speed="0.7"
     mountains
   ></aurora-bg>
+
+  <!-- SVG preview fallback (shown when Web Component fails or JS disabled) -->
+  <img
+    src="./preview.svg"
+    alt="Aurora borealis animation preview"
+    id="preview-fallback"
+    style="display:none; position:fixed; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;"
+  />
 
   <div class="content">
 
@@ -412,12 +439,37 @@ engine.<span class="function">start</span>()</pre>
       </div>
     </section>
 
+    <!-- AI Prompts -->
+    <section id="ai-prompts" class="section">
+      <h2 class="section-title">🤖 AI Prompts</h2>
+      <p class="section-subtitle">Copy-paste these into your AI assistant to add aurora-bg instantly.</p>
+      <div class="card-grid">
+        <div class="card">
+          <h3><a href="https://github.com/alehar9320/aurora-bg/blob/main/AI.md">AI Reference (AI.md)</a></h3>
+          <p>The definitive AI reference with 40+ copy-paste prompts organized by framework and use case. Tell your AI assistant to use <code>aurora-bg</code>.</p>
+        </div>
+        <div class="card">
+          <h3>CDN Install</h3>
+          <p>"Add an aurora borealis animated background to my HTML page using the aurora-bg CDN with green and blue colors."</p>
+        </div>
+        <div class="card">
+          <h3>React Install</h3>
+          <p>"Install aurora-bg in my React app and use it as a fixed full-screen background with mountains."</p>
+        </div>
+        <div class="card">
+          <h3>Custom Canvas</h3>
+          <p>"Create an aurora borealis canvas animation using AuroraEngine with custom colors and density."</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
       <p>
         MIT &copy; Alexander Härenstam &middot;
         <a href="https://github.com/alehar9320/aurora-bg">GitHub</a> &middot;
         <a href="https://www.npmjs.com/package/aurora-bg">npm</a> &middot;
+        <a href="https://github.com/alehar9320/aurora-bg/blob/main/AI.md">AI Reference</a> &middot;
         <a href="https://alehar9320.github.io/aurora-bg/">Docs</a>
       </p>
     </footer>
@@ -426,6 +478,15 @@ engine.<span class="function">start</span>()</pre>
 
   <script>
     auroraBg.defineAuroraBg()
+
+    // SVG preview fallback: show static preview if aurora fails to render
+    setTimeout(function() {
+      var aurora = document.querySelector('aurora-bg')
+      var preview = document.getElementById('preview-fallback')
+      if (preview && (!aurora || !aurora.querySelector('canvas'))) {
+        preview.style.display = 'block'
+      }
+    }, 3000)
 
     // Tab switching
     document.querySelectorAll('.tab-btn').forEach(function(btn) {
